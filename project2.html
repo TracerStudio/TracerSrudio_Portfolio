@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TechConsult: Premier IT consulting agency specializing in software development, cloud solutions, and strategic IT planning.">
+  <meta name="keywords" content="IT consulting, software development, cloud solutions, IT strategy, digital transformation">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="TechConsult Team">
+  <meta property="og:title" content="TechConsult — IT Consulting Excellence">
+  <meta property="og:description" content="Transform your business with expert IT consulting and innovative software solutions.">
+  <meta property="og:image" content="https://via.placeholder.com/1200x630?text=TechConsult+OG+Image">
+  <meta property="og:url" content="https://your-techconsult-demo.com">
+  <title>TechConsult — IT Consulting Excellence</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231a2b4a'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z'/%3E%3C/svg%3E" />
+  <style>
+    html {
+      scroll-behavior: smooth;
+      font-family: 'Roboto', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    body {
+      background-color: #f8fafc;
+      color: #1a2b4a;
+    }
+    .hero-bg {
+      background: linear-gradient(to bottom, #1a2b4a 0%, #3b4a6b 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://via.placeholder.com/1920x1080?text=IT+Consulting+Hero+WebP') no-repeat center/cover;
+      opacity: 0.15;
+    }
+    .card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      background: #ffffff;
+      overflow: hidden;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    .btn-primary {
+      background: #d4a017;
+      color: #1a2b4a;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      background: #b38b14;
+      box-shadow: 0 4px 12px rgba(212, 160, 23, 0.3);
+    }
+    .icon {
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+    .icon:hover {
+      color: #d4a017;
+      transform: scale(1.1);
+    }
+    img[data-src] {
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    img[data-src].loaded {
+      opacity: 1;
+    }
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #d4a017;
+      color: #1a2b4a;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .back-to-top.visible {
+      opacity: 1;
+    }
+    .map-container iframe {
+      width: 100%;
+      height: 300px;
+      border: 0;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="fixed top-0 left-0 w-full bg-white shadow-md z-50">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="text-2xl font-bold">
+        <a href="#" class="flex items-center text-[#1a2b4a]">
+          <i class="fa-solid fa-laptop-code mr-2 icon"></i>TechConsult
+        </a>
+      </div>
+      <nav class="hidden md:flex space-x-6 font-medium">
+        <a href="#home" class="text-[#1a2b4a] hover:text-[#d4a017]">Home</a>
+        <a href="#services" class="text-[#1a2b4a] hover:text-[#d4a017]">Services</a>
+        <a href="#about" class="text-[#1a2b4a] hover:text-[#d4a017]">About</a>
+        <a href="#cases" class="text-[#1a2b4a] hover:text-[#d4a017]">Cases</a>
+        <a href="#blog" class="text-[#1a2b4a] hover:text-[#d4a017]">Blog</a>
+        <a href="#contacts" class="text-[#1a2b4a] hover:text-[#d4a017]">Contacts</a>
+      </nav>
+      <button id="menuBtn" class="md:hidden text-[#1a2b4a]" aria-label="Toggle Menu">
+        <i class="fa-solid fa-bars icon"></i>
+      </button>
+    </div>
+    <nav id="mobileMenu" class="hidden bg-white md:hidden flex-col p-4 space-y-2">
+      <a href="#home" class="text-[#1a2b4a] hover:text-[#d4a017] py-2">Home</a>
+      <a href="#services" class="text-[#1a2b4a] hover:text-[#d4a017] py-2">Services</a>
+      <a href="#about" class="text-[#1a2b4a] hover:text-[#d4a017] py-2">About</a>
+      <a href="#cases" class="text-[#1a2b4a] hover:text-[#d4a017] py-2">Cases</a>
+      <a href="#blog" class="text-[#1a2b4a] hover:text-[#d4a017] py-2">Blog</a>
+      <a href="#contacts" class="text-[#1a2b4a] hover:text-[#d4a017] py-2">Contacts</a>
+    </nav>
+  </header>
+
+  <main class="pt-16">
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg py-20 text-white text-center" data-aos="fade-up">
+      <div class="container mx-auto px-4">
+        <h1 class="text-3xl md:text-5xl font-bold mb-6">Transforming Businesses with IT Excellence</h1>
+        <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8">TechConsult delivers innovative IT solutions, from custom software to cloud strategies, to drive your success.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="#services" class="btn-primary px-6 py-3 font-medium">Explore Services</a>
+          <a href="#cases" class="px-6 py-3 border border-white rounded-lg hover:bg-white hover:text-[#1a2b4a] font-medium">View Our Cases</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="stats" class="py-16 bg-white" data-aos="fade-up" data-aos-delay="100">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-[#1a2b4a] text-center mb-12">Our Impact in Numbers</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          <div class="card p-6 text-center">
+            <i class="fa-solid fa-code text-3xl text-[#d4a017] mb-4 icon"></i>
+            <p class="text-2xl font-bold text-[#1a2b4a]">100+</p>
+            <p class="text-[#6b7280]">Projects Delivered</p>
+          </div>
+          <div class="card p-6 text-center">
+            <i class="fa-solid fa-users text-3xl text-[#d4a017] mb-4 icon"></i>
+            <p class="text-2xl font-bold text-[#1a2b4a]">50+</p>
+            <p class="text-[#6b7280]">Clients Served</p>
+          </div>
+          <div class="card p-6 text-center">
+            <i class="fa-solid fa-cloud text-3xl text-[#d4a017] mb-4 icon"></i>
+            <p class="text-2xl font-bold text-[#1a2b4a]">20+</p>
+            <p class="text-[#6b7280]">Cloud Migrations</p>
+          </div>
+          <div class="card p-6 text-center">
+            <i class="fa-solid fa-globe text-3xl text-[#d4a017] mb-4 icon"></i>
+            <p class="text-2xl font-bold text-[#1a2b4a]">10+</p>
+            <p class="text-[#6b7280]">Countries Served</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Advantages Section -->
+    <section id="advantages" class="py-16 bg-[#f1f5f9]" data-aos="fade-up" data-aos-delay="200">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-[#1a2b4a] text-center mb-12">Why Choose TechConsult?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="card p-6">
+            <i class="fa-solid fa-rocket text-3xl text-[#d4a017] mb-4 icon"></i>
+            <h3 class="text-xl font-semibold text-[#1a2b4a] mb-2">Innovative Solutions</h3>
+            <p class="text-[#6b7280]">We deliver cutting-edge software tailored to your needs.</p>
+          </div>
+          <div class="card p-6">
+            <i class="fa-solid fa-user-check text-3xl text-[#d4a017] mb-4 icon"></i>
+            <h3 class="text-xl font-semibold text-[#1a2b4a] mb-2">Expert Team</h3>
+            <p class="text-[#6b7280]">Our consultants bring decades of IT expertise.</p>
+          </div>
+          <div class="card p-6">
+            <i class="fa-solid fa-handshake text-3xl text-[#d4a017] mb-4 icon"></i>
+            <h3 class="text-xl font-semibold text-[#1a2b4a] mb-2">Client-Centric</h3>
+            <p class="text-[#6b7280]">Your success is our priority with personalized solutions.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 bg-white" data-aos="fade-up" data-aos-delay="300">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-[#1a2b4a] text-center mb-12">Our Services</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="card p-6">
+            <img data-src="https://img.freepik.com/free-vector/desktop-smartphone-app-development_23-2148683810.jpg?uid=R193545003&ga=GA1.1.1261163122.1729983456&semt=ais_hybrid&w=740" alt="Software Development" class="w-full h-40 object-cover mb-4 rounded">
+            <h3 class="text-xl font-semibold text-[#1a2b4a] mb-2">Software Development</h3>
+            <p class="text-[#6b7280] mb-4">Build custom applications to streamline your operations.</p>
+            <a href="#contacts" class="btn-primary px-4 py-2 font-medium">Request Quote</a>
+          </div>
+          <div class="card p-6">
+            <img data-src="https://img.freepik.com/premium-vector/flat-cloud-syncing-concept_108061-613.jpg?uid=R193545003&ga=GA1.1.1261163122.1729983456&semt=ais_hybrid&w=740" alt="Cloud Solutions" class="w-full h-40 object-cover mb-4 rounded">
+            <h3 class="text-xl font-semibold text-[#1a2b4a] mb-2">Cloud Solutions</h3>
+            <p class="text-[#6b7280] mb-4">Migrate and optimize with secure cloud infrastructure.</p>
+            <a href="#contacts" class="btn-primary px-4 py-2 font-medium">Request Quote</a>
+          </div>
+          <div class="card p-6">
+            <img data-src="https://img.freepik.com/free-vector/strategic-consulting-concept-illustration_114360-9004.jpg?uid=R193545003&ga=GA1.1.1261163122.1729983456&semt=ais_hybrid&w=740" alt="IT Strategy" class="w-full h-40 object-cover mb-4 rounded">
+            <h3 class="text-xl font-semibold text-[#1a2b4a] mb-2">IT Strategy</h3>
+            <p class="text-[#6b7280] mb-4">Align technology with your business goals.</p>
+            <a href="#contacts" class="btn-primary px-4 py-2 font-medium">Request Quote</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About/Team Section -->
+    <section id="about" class="py-16 bg-[#f1f5f9]" data-aos="fade-up" data-aos-delay="400">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-[#1a2b4a] text-center mb-12">About TechConsult</h2>
+        <p class="text-lg text-[#6b7280] max-w-3xl mx-auto mb-12 text-center">Since 2015, TechConsult has empowered businesses with innovative IT solutions, driving digital transformation worldwide.</p>
+        <h3 class="text-2xl font-semibold text-[#1a2b4a] text-center mb-8">Our Team</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          <div class="card p-6 text-center">
+            <img data-src="https://img.freepik.com/free-photo/how-may-i-assist-you-smiling-friendly-woman-standing-pleasant-formal-pose-keeping-emotions-together-ready-offer-help-assistance-standing-white_176420-39979.jpg?uid=R193545003&ga=GA1.1.1261163122.1729983456&semt=ais_hybrid&w=740" alt="Anna K., CEO" class="w-24 h-24 rounded-full mx-auto mb-4">
+            <h4 class="text-lg font-semibold text-[#1a2b4a]">Anna K.</h4>
+            <p class="text-[#6b7280] text-sm">CEO, 15+ years in IT</p>
+            <a href="#" class="text-[#d4a017] hover:text-[#b38b14]"><i class="fa-brands fa-linkedin icon"></i></a>
+          </div>
+          <div class="card p-6 text-center">
+            <img data-src="https://img.freepik.com/free-photo/handsome-young-cheerful-man-with-arms-crossed_171337-1073.jpg?uid=R193545003&ga=GA1.1.1261163122.1729983456&semt=ais_hybrid&w=740" alt="Mark S., CTO" class="w-24 h-24 rounded-full mx-auto mb-4">
+            <h4 class="text-lg font-semibold text-[#1a2b4a]">Mark S.</h4>
+            <p class="text-[#6b7280] text-sm">CTO, Software Expert</p>
+            <a href="#" class="text-[#d4a017] hover:text-[#b38b14]"><i class="fa-brands fa-linkedin icon"></i></a>
+          </div>
+          <div class="card p-6 text-center">
+            <img data-src="https://img.freepik.com/free-photo/stylish-young-modern-woman-with-blond-hairdo-holding-hands-jeans-pockets-smiling-carefree-looking-confident-determined-white-wall_176420-39386.jpg?uid=R193545003&ga=GA1.1.1261163122.1729983456&semt=ais_hybrid&w=740" alt="Elena R., Developer" class="w-24 h-24 rounded-full mx-auto mb-4">
+            <h4 class="text-lg font-semibold text-[#1a2b4a]">Elena R.</h4>
+            <p class="text-[#6b7280] text-sm">Lead Developer</p>
+            <a href="#" class="text-[#d4a017] hover:text-[#b38b14]"><i class="fa-brands fa-linkedin icon"></i></a>
+          </div>
+          <div class="card p-6 text-center">
+            <img data-src="https://img.freepik.com/premium-photo/attractive-smiling-young-man-glasses-studio-headshot_656932-6164.jpg?uid=R193545003&ga=GA1.1.1261163122.1729983456&semt=ais_hybrid&w=740" alt="Alex T., Consultant" class="w-24 h-24 rounded-full mx-auto mb-4">
+            <h4 class="text-lg font-semibold text-[#1a2b4a]">Alex T.</h4>
+            <p class="text-[#6b7280] text-sm">IT Consultant</p>
+            <a href="#" class="text-[#d4a017] hover:text-[#b38b14]"><i class="fa-brands fa-linkedin icon"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cases Section -->
+    <section id="cases" class="py-16 bg-white" data-aos="fade-up" data-aos-delay="500">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-[#1a2b4a] text-center mb-12">Our Success Stories</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="card p-6">
+            <img data-src="https://img.freepik.com/free-vector/isometric-crm-illustration_52683-83950.jpg?uid=R193545003&ga=GA1.1.1261163122.1729983456&semt=ais_hybrid&w=740" alt="CRM System Screenshot" class="w-full h-40 object-cover mb-4 rounded">
+            <h3 class="text-xl font-semibold text-[#1a2b4a] mb-2">CRM System</h3>
+            <p class="text-[#6b7280] mb-4">Developed a custom CRM for 10K+ users, boosting efficiency by 30%.</p>
+            <p class="text-sm text-[#6b7280] italic">"Transformed our operations!" — Client X</p>
+          </div>
+          <div class="card p-6">
+            <img data-src="https://img.freepik.com/free-vector/cloud-services-isometric-composition-with-cloud-connection-icons-server-racks-wired-cloud-with-sync-sign-vector-illustration_1284-65966.jpg?uid=R193545003&ga=GA1.1.1261163122.1729983456&semt=ais_hybrid&w=740" alt="Cloud Migration Screenshot" class="w-full h-40 object-cover mb-4 rounded">
+            <h3 class="text-xl font-semibold text-[#1a2b4a] mb-2">Cloud Migration</h3>
+            <p class="text-[#6b7280] mb-4">Migrated 500+ servers to AWS, reducing costs by 25%.</p>
+            <p class="text-sm text-[#6b7280] italic">"Seamless and cost-effective." — Client Y</p>
+          </div>
+          <div class="card p-6">
+            <img data-src="https://img.freepik.com/free-vector/gradient-ui-ux-background_23-2149024129.jpg?uid=R193545003&ga=GA1.1.1261163122.1729983456&semt=ais_hybrid&w=740" alt="Mobile App Screenshot" class="w-full h-40 object-cover mb-4 rounded">
+            <h3 class="text-xl font-semibold text-[#1a2b4a] mb-2">Mobile App</h3>
+            <p class="text-[#6b7280] mb-4">Built a cross-platform app with 50K+ downloads.</p>
+            <p class="text-sm text-[#6b7280] italic">"Exceptional quality!" — Client Z</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="py-16 bg-[#f1f5f9]" data-aos="fade-up" data-aos-delay="600">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-[#1a2b4a] text-center mb-12">Latest Insights</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="card p-6">
+            <h3 class="text-xl font-semibold text-[#1a2b4a] mb-2">The Future of Cloud Computing</h3>
+            <p class="text-sm text-[#6b7280] mb-2">May 15, 2025</p>
+            <p class="text-[#6b7280] mb-4">Explore trends shaping cloud technology in 2025...</p>
+            <a href="#" class="text-[#d4a017] hover:text-[#b38b14]">Read More</a>
+          </div>
+          <div class="card p-6">
+            <h3 class="text-xl font-semibold text-[#1a2b4a] mb-2">Agile Development Best Practices</h3>
+            <p class="text-sm text-[#6b7280] mb-2">May 10, 2025</p>
+            <p class="text-[#6b7280] mb-4">Learn how to optimize your software projects...</p>
+            <a href="#" class="text-[#d4a017] hover:text-[#b38b14]">Read More</a>
+          </div>
+          <div class="card p-6">
+            <h3 class="text-xl font-semibold text-[#1a2b4a] mb-2">Cybersecurity in IT Consulting</h3>
+            <p class="text-sm text-[#6b7280] mb-2">May 5, 2025</p>
+            <p class="text-[#6b7280] mb-4">Protect your business with robust IT security...</p>
+            <a href="#" class="text-[#d4a017] hover:text-[#b38b14]">Read More</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contacts Section -->
+    <section id="contacts" class="py-16 bg-white" data-aos="fade-up" data-aos-delay="700">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-[#1a2b4a] text-center mb-12">Get in Touch</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <h3 class="text-xl font-semibold text-[#1a2b4a] mb-4">Contact Information</h3>
+            <p class="text-[#6b7280] mb-2"><i class="fa-solid fa-envelope mr-2 icon"></i>Email: info@techconsult.com</p>
+            <p class="text-[#6b7280] mb-2"><i class="fa-brands fa-telegram mr-2 icon"></i>Telegram: @TechConsult</p>
+            <p class="text-[#6b7280] mb-4"><i class="fa-solid fa-map-marker-alt mr-2 icon"></i>Address: 123 Tech Street, Kyiv, Ukraine</p>
+            <div class="map-container">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2540.678178234614!2d30.51780531573089!3d50.44758237947647!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4ce4e5c7b6e3b%3A0x1c6e2e6f8b7b6e3b!2sKyiv%2C%20Ukraine!5e0!3m2!1sen!2sus!4v1698765432109!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold text-[#1a2b4a] mb-4">Send Us a Message</h3>
+            <form id="contactForm" class="flex flex-col gap-4">
+              <input type="text" id="contactName" placeholder="Your Name" required class="px-4 py-2 rounded-lg border border-[#e2e8f0] focus:ring-2 focus:ring-[#d4a017]" aria-label="Your Name">
+              <input type="email" id="contactEmail" placeholder="Your Email" required class="px-4 py-2 rounded-lg border border-[#e2e8f0] focus:ring-2 focus:ring-[#d4a017]" aria-label="Your Email">
+              <textarea id="contactMessage" placeholder="Your Message" required class="px-4 py-2 rounded-lg border border-[#e2e8f0] focus:ring-2 focus:ring-[#d4a017] resize-none h-32" aria-label="Your Message"></textarea>
+              <button type="submit" class="btn-primary px-6 py-3 font-medium">Send Message</button>
+            </form>
+            <p id="contactMessageOutput" class="mt-4 text-[#d4a017] hidden" aria-live="polite"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#1a2b4a] text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div>
+          <h3 class="text-lg font-semibold mb-4 flex items-center">
+            <i class="fa-solid fa-laptop-code mr-2 icon"></i>TechConsult
+          </h3>
+          <p class="text-sm">Empowering businesses with innovative IT solutions.</p>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Links</h3>
+          <ul class="text-sm space-y-2">
+            <li><a href="#services" class="hover:text-[#d4a017]">Services</a></li>
+            <li><a href="#about" class="hover:text-[#d4a017]">About</a></li>
+            <li><a href="#cases" class="hover:text-[#d4a017]">Cases</a></li>
+            <li><a href="#blog" class="hover:text-[#d4a017]">Blog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Contact</h3>
+          <p class="text-sm">Email: info@techconsult.com</p>
+          <p class="text-sm">Telegram: @TechConsult</p>
+          <p class="text-sm">Address: 123 Tech Street, Kyiv, Ukraine</p>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
+          <div class="flex space-x-4">
+            <a href="#" class="hover:text-[#d4a017]" aria-label="LinkedIn"><i class="fa-brands fa-linkedin icon"></i></a>
+            <a href="#" class="hover:text-[#d4a017]" aria-label="X"><i class="fa-brands fa-x-twitter icon"></i></a>
+            <a href="#" class="hover:text-[#d4a017]" aria-label="Telegram"><i class="fa-brands fa-telegram icon"></i></a>
+          </div>
+        </div>
+      </div>
+      <p class="text-sm text-center">© 2025 TechConsult. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <a href="#" class="back-to-top" aria-label="Back to Top"><i class="fa-solid fa-arrow-up"></i></a>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Initialize AOS
+    AOS.init({ duration: 800, once: true });
+
+    // Mobile Menu
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Lazy Load Images
+    const lazyImages = document.querySelectorAll('img[data-src]');
+    const imageObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          img.src = img.dataset.src;
+          img.classList.add('loaded');
+          imageObserver.unobserve(img);
+        }
+      });
+    });
+    lazyImages.forEach(img => imageObserver.observe(img));
+
+    // Back to Top
+    const backToTop = document.querySelector('.back-to-top');
+    window.addEventListener('scroll', () => {
+      backToTop.classList.toggle('visible', window.scrollY > 300);
+    });
+
+    // Form Validation
+    const contactForm = document.getElementById('contactForm');
+    const contactMessageOutput = document.getElementById('contactMessageOutput');
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('contactName').value.trim();
+      const email = document.getElementById('contactEmail').value.trim();
+      const message = document.getElementById('contactMessage').value.trim();
+      if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !message) {
+        contactMessageOutput.textContent = 'Please fill all fields correctly.';
+        contactMessageOutput.classList.remove('hidden', 'text-[#d4a017]');
+        contactMessageOutput.classList.add('text-red-400');
+        return;
+      }
+      contactMessageOutput.textContent = 'Message sent successfully!';
+      contactMessageOutput.classList.remove('hidden', 'text-red-400');
+      contactMessageOutput.classList.add('text-[#d4a017]');
+      contactForm.reset();
+      setTimeout(() => contactMessageOutput.classList.add('hidden'), 3000);
+    });
+  </script>
+</body>
+</html>

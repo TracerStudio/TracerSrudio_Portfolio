@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SparkVibe: Premium SaaS DeFi platform for crypto investments, NFT staking, and Web3 governance." />
+  <meta name="keywords" content="DeFi, SaaS, crypto, NFT, blockchain, Web3, staking, governance" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="SparkVibe Team" />
+  <meta property="og:title" content="SparkVibe — Web3 SaaS Platform" />
+  <meta property W property="og:description" content="Secure crypto investments, exclusive NFT staking, and decentralized governance with SparkVibe." />
+  <meta property="og:image" content="https://via.placeholder.com/1200x630?text=SparkVibe+OG+Image" />
+  <meta property="og:url" content="https://your-sparkvibe-demo.com" />
+  <title>SparkVibe — Web3 SaaS Platform</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.7.4/dist/web3.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23a855f7'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z'/%3E%3C/svg%3E" />
+  <style>
+    /* Base styles */
+    html {
+      scroll-behavior: smooth;
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Custom cursor */
+    body {
+      cursor: none;
+    }
+    .custom-cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #a855f7;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: all 0.1s ease;
+      z-index: 9999;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.3) 20%, transparent 70%);
+      box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+    }
+    .custom-cursor--hover {
+      transform: translate(-50%, -50%) scale(1.4);
+      background: radial-gradient(circle, rgba(236, 72, 153, 0.4) 20%, transparent 70%);
+      box-shadow: 0 0 15px rgba(236, 72, 153, 0.7);
+    }
+
+    /* Fade-in animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Hero section */
+    .hero-bg {
+      background: linear-gradient(135deg, #1e3a8a 0%, #6b21a8 50%, #db2777 100%);
+      background-size: 300% 300%;
+      animation: gradientPulse 8s ease infinite;
+      position: relative;
+      overflow: hidden;
+    }
+    @keyframes gradientPulse {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://via.placeholder.com/1920x1080?text=NFT+Hero+WebP') no-repeat center/cover;
+      opacity: 0.1;
+      animation: holographicShift 10s ease infinite;
+    }
+    @keyframes holographicShift {
+      0% { transform: translateY(50%); }
+      50% { transform: translateY(-50%); }
+      100% { transform: translateY(50%); }
+    }
+
+    /* Card styles */
+    .card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(168, 85, 247, 0.2);
+      border-radius: 12px;
+      background: linear-gradient(145deg, rgba(31, 41, 55, 0.95), rgba(55, 65, 81, 0.95));
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 25px rgba(168, 85, 247, 0.4);
+    }
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.4s;
+    }
+    .card:hover::after {
+      left: 100%;
+    }
+
+    /* Button styles */
+    .btn-primary {
+      background: linear-gradient(90deg, #3b82f6, #db2777);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      border-radius: 9999px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.4s;
+      z-index: -1;
+    }
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.5);
+    }
+    .btn-primary:focus {
+      outline: none;
+      ring: 2px solid #3b82f6;
+    }
+
+    /* Crypto icon */
+    .crypto-icon {
+      transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
+    }
+    .crypto-icon:hover {
+      color: #db2777;
+      text-shadow: 0 0 8px rgba(219, 39, 119, 0.9);
+      transform: scale(1.1);
+    }
+
+    /* Lazy-loaded images */
+    img[data-src] {
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    img[data-src].loaded {
+      opacity: 1;
+    }
+
+    /* FAQ accordion */
+    .faq-item input:checked ~ .faq-content {
+      max-height: 200px;
+      padding: 1rem;
+    }
+    .faq-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    /* Loading spinner */
+    .spinner {
+      display: none;
+      border: 2px solid #a855f7;
+      border-top: 2px solid #db2777;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      animation: spin 1s linear infinite;
+      margin-right: 8px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Focus states */
+    a:focus, button:focus {
+      outline: 2px solid #3b82f6;
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body class="bg-gray-950 text-white">
+  <!-- Custom cursor -->
+  <div class="custom-cursor" id="cursor"></div>
+
+  <!-- Header -->
+  <header class="fixed top-0 left-0 w-full bg-gray-900 bg-opacity-90 backdrop-blur-lg z-50 shadow-lg">
+    <div class="container mx-auto flex items-center justify-between px-4 py-4 sm:px-6">
+      <div class="text-2xl font-extrabold tracking-tight">
+        <a href="/" aria-label="SparkVibe Home" class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-600 flex items-center">
+          <i class="fa-solid fa-cubes-stacked mr-2 crypto-icon text-2xl sm:text-3xl"></i>SparkVibe
+        </a>
+      </div>
+      <nav class="hidden md:flex space-x-8 text-gray-200 font-semibold text-sm">
+        <a href="#about" class="flex items-center hover:text-blue-400 transition-colors duration-200" aria-label="About Section">
+          <i class="fa-solid fa-circle-info mr-1 crypto-icon"></i>About
+        </a>
+        <a href="#how" class="flex items-center hover:text-blue-400 transition-colors duration-200" aria-label="How It Works Section">
+          <i class="fa-solid fa-diagram-project mr-1 crypto-icon"></i>How It Works
+        </a>
+        <a href="#pricing" class="flex items-center hover:text-blue-400 transition-colors duration-200" aria-label="Pricing Section">
+          <i class="fa-solid fa-tags mr-1 crypto-icon"></i>Pricing
+        </a>
+        <a href="#nft" class="flex items-center hover:text-blue-400 transition-colors duration-200" aria-label="NFT Collection Section">
+          <i class="fa-solid fa-image mr-1 crypto-icon"></i>NFTs
+        </a>
+        <a href="#governance" class="flex items-center hover:text-blue-400 transition-colors duration-200" aria-label="Governance Section">
+          <i class="fa-solid fa-gavel mr-1 crypto-icon"></i>Governance
+        </a>
+      </nav>
+      <div class="hidden md:flex items-center space-x-4">
+        <a href="#subscribe" class="text-gray-200 hover:text-blue-400 font-semibold flex items-center" aria-label="Subscribe Section">
+          <i class="fa-solid fa-envelope mr-1 crypto-icon"></i>Subscribe
+        </a>
+        <button id="connectWalletBtn" class="btn-primary px-4 py-2 rounded-full font-semibold text-sm flex items-center" aria-label="Connect Crypto Wallet">
+          <span class="spinner" id="walletSpinner"></span>
+          <i class="fa-solid fa-wallet mr-1 crypto-icon"></i><span id="walletStatus">Connect Wallet</span>
+        </button>
+      </div>
+      <button id="menuBtn" class="md:hidden text-gray-200 focus:outline-none" aria-label="Toggle Mobile Menu">
+        <i class="fa-solid fa-cubes w-6 h-6 crypto-icon"></i>
+      </button>
+    </div>
+    <nav id="mobileMenu" class="hidden bg-gray-900 text-gray-200 flex flex-col space-y-3 p-4 sm:p-6 md:hidden">
+      <a href="#about" class="flex items-center hover:text-blue-400 py-2 font-semibold" aria-label="About Section">
+        <i class="fa-solid fa-circle-info mr-1 crypto-icon"></i>About
+      </a>
+      <a href="#how" class="flex items-center hover:text-blue-400 py-2 font-semibold" aria-label="How It Works Section">
+        <i class="fa-solid fa-diagram-project mr-1 crypto-icon"></i>How It Works
+      </a>
+      <a href="#pricing" class="flex items-center hover:text-blue-400 py-2 font-semibold" aria-label="Pricing Section">
+        <i class="fa-solid fa-tags mr-1 crypto-icon"></i>Pricing
+      </a>
+      <a href="#nft" class="flex items-center hover:text-blue-400 py-2 font-semibold" aria-label="NFT Collection Section">
+        <i class="fa-solid fa-image mr-1 crypto-icon"></i>NFTs
+      </a>
+      <a href="#governance" class="flex items-center hover:text-blue-400 py-2 font-semibold" aria-label="Governance Section">
+        <i class="fa-solid fa-gavel mr-1 crypto-icon"></i>Governance
+      </a>
+      <a href="#subscribe" class="flex items-center hover:text-blue-400 py-2 font-semibold" aria-label="Subscribe Section">
+        <i class="fa-solid fa-envelope mr-1 crypto-icon"></i>Subscribe
+      </a>
+      <button id="connectWalletBtnMobile" class="btn-primary px-4 py-2 rounded-full font-semibold text-sm flex items-center" aria-label="Connect Crypto Wallet">
+        <span class="spinner" id="walletSpinnerMobile"></span>
+        <i class="fa-solid fa-wallet mr-1 crypto-icon"></i><span id="walletStatusMobile">Connect Wallet</span>
+      </button>
+    </nav>
+  </header>
+
+  <main class="pt-16">
+    <!-- Hero Section -->
+    <section class="min-h-screen flex flex-col justify-center items-center text-center px-4 sm:px-6 hero-bg fade-in">
+      <div class="relative z-10 max-w-5xl mx-auto">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 leading-tight tracking-tight">
+          Unlock Wealth Creation<br />
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-600 flex items-center justify-center">
+            <i class="fa-solid fa-bitcoin-sign mr-2 crypto-icon text-3xl sm:text-4xl"></i>Web3 SaaS DeFi
+          </span>
+        </h1>
+        <p class="text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-8 text-gray-200 leading-relaxed">
+          Invest in crypto, stake premium NFTs, and govern the future with our decentralized platform.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="#pricing" class="btn-primary px-6 py-3 rounded-full font-semibold text-base shadow-xl flex items-center justify-center" aria-label="View Pricing Plans">
+            <i class="fa-solid fa-rocket-launch mr-1 crypto-icon"></i>Start Now
+          </a>
+          <a href="#demo" class="px-6 py-3 rounded-full font-semibold text-base border border-gray-600 hover:bg-gray-800 flex items-center justify-center" aria-label="Request Live Demo">
+            <i class="fa-solid fa-play mr-1 crypto-icon"></i>Live Demo
+          </a>
+        </div>
+        <p id="walletBalance" class="mt-6 text-sm text-gray-400 hidden" aria-live="polite">
+          Connected: <span id="balance">0</span> ETH | NFTs: <span id="nftCount">0</span>
+          <span id="nftBadge" class="ml-2 inline-block bg-blue-400 text-white text-xs px-2 py-1 rounded-full hidden">NFT Owner</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="stats" class="bg-gray-900 py-16 px-4 sm:px-6 fade-in">
+      <div class="container mx-auto max-w-5xl">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-600 flex items-center justify-center">
+          <i class="fa-solid fa-chart-bar mr-2 crypto-icon"></i>Our Blockchain Impact
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          <div class="card p-6 text-center">
+            <i class="fa-solid fa-wallet mx-auto mb-4 text-3xl text-blue-400 crypto-icon"></i>
+            <p class="text-2xl font-bold text-gray-100">$50M+</p>
+            <p class="text-sm text-gray-300">Assets Staked</p>
+          </div>
+          <div class="card p-6 text-center">
+            <i class="fa-solid fa-users mx-auto mb-4 text-3xl text-blue-400 crypto-icon"></i>
+            <p class="text-2xl font-bold text-gray-100">10K+</p>
+            <p class="text-sm text-gray-300">Active Users</p>
+          </div>
+          <div class="card p-6 text-center">
+            <i class="fa-solid fa-image mx-auto mb-4 text-3xl text-blue-400 crypto-icon"></i>
+            <p class="text-2xl font-bold text-gray-100">5K+</p>
+            <p class="text-sm text-gray-300">NFTs Staked</p>
+          </div>
+          <div class="card p-6 text-center">
+            <i class="fa-solid fa-globe mx-auto mb-4 text-3xl text-blue-400 crypto-icon"></i>
+            <p class="text-2xl font-bold text-gray-100">99.9%</p>
+            <p class="text-sm text-gray-300">Uptime</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="container mx-auto px-4 sm:px-6 py-16 max-w-6xl fade-in">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-600 flex items-center justify-center">
+        <i class="fa-solid fa-cubes mr-2 crypto-icon"></i>Why Choose SparkVibe?
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="card p-6">
+          <i class="fa-solid fa-shield-halved mx-auto mb-4 text-3xl text-blue-400 crypto-icon"></i>
+          <h3 class="text-xl font-semibold mb-3 text-gray-100 text-center">Top-Tier Security</h3>
+          <p class="text-gray-300 leading-relaxed text-center">Audited smart contracts and multi-sig wallets ensure safety.</p>
+        </div>
+        <div class="card p-6">
+          <i class="fa-solid fa-network-wired mx-auto mb-4 text-3xl text-blue-400 crypto-icon"></i>
+          <h3 class="text-xl font-semibold mb-3 text-gray-100 text-center">Decentralized Control</h3>
+          <p class="text-gray-300 leading-relaxed text-center">No intermediaries, full ownership of your assets.</p>
+        </div>
+        <div class="card p-6">
+          <i class="fa-solid fa-bolt-lightning mx-auto mb-4 text-3xl text-blue-400 crypto-icon"></i>
+          <h3 class="text-xl font-semibold mb-3 text-gray-100 text-center">SaaS Simplicity</h3>
+          <p class="text-gray-300 leading-relaxed text-center">Real-time analytics and intuitive UX for all users.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how" class="bg-gray-900 py-16 px-4 sm:px-6 fade-in">
+      <div class="container mx-auto max-w-5xl">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-600 flex items-center justify-center">
+          <i class="fa-solid fa-diagram-project mr-2 crypto-icon"></i>Start in 4 Steps
+        </h2>
+        <div class="space-y-8">
+          <div class="flex items-start space-x-4">
+            <i class="fa-solid fa-wallet text-2xl text-blue-400 crypto-icon mt-1"></i>
+            <div>
+              <h3 class="text-lg font-semibold mb-2 text-gray-100">Connect Wallet</h3>
+              <p class="text-gray-300 leading-relaxed">Link Metamask or any Web3 wallet in seconds.</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4">
+            <i class="fa-solid fa-chart-line text-2xl text-blue-400 crypto-icon mt-1"></i>
+            <div>
+              <h3 class="text-lg font-semibold mb-2 text-gray-100">Select Plan</h3>
+              <p class="text-gray-300 leading-relaxed">Choose a DeFi strategy for your goals.</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4">
+            <i class="fa-solid fa-coins text-2xl text-blue-400 crypto-icon mt-1"></i>
+            <div>
+              <h3 class="text-lg font-semibold mb-2 text-gray-100">Earn Rewards</h3>
+              <p class="text-gray-300 leading-relaxed">Track profits with advanced analytics.</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4">
+            <i class="fa-solid fa-money-bill-transfer text-2xl text-blue-400 crypto-icon mt-1"></i>
+            <div>
+              <h3 class="text-lg font-semibold mb-2 text-gray-100">Withdraw Anytime</h3>
+              <p class="text-gray-300 leading-relaxed">Access funds instantly, no fees.</p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-12 text-center">
+          <img data-src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMSEBUQEBMVFRUXGBUQFRUWGBYXFhIQFRUWFhUSFxUYJikgGBomGxYWIjEhJSkrLi4uFx8zODMsNygtLisBCgoKDg0OFxAQFy0fHx0rLS03LS0tLS0tLSstLS0tLS0tLS0tLS0yNS0uLS01Ky0uKy0tNS0rNy0rKzctLS0rLv/AABEIAJ0BQQMBIgACEQEDEQH/xAAaAAACAwEBAAAAAAAAAAAAAAAAAQMEBQIG/8QAPhAAAQMBBQUECAUEAQUBAAAAAQACEQMEEiExUQUTQZGhFCJhcRVCUlOBscHwBhYyYtEjgtLh8TNykqLCJP/EABkBAQEBAQEBAAAAAAAAAAAAAAABAgMEBf/EACQRAQACAgEEAwADAQAAAAAAAAABEQISIQMTMVEEQaEjYXEi/9oADAMBAAIRAxEAPwDyWz7Mzdbw0zWJcWXAXC40Ad/u+fUZcc3bdAU3VGNN4CIOswfqlZ69RsmmXtnA3SRPnHmqtrcbrgRj/tdKm3lxwyjOZmeFAJrkJqO5rQ2Lsata3mnZ2XiBLiSGtaDlJOvAZ56FZy9D+DfxS6wVHuDL7XhocJghzb11wOPtHDy0x5dac4wmenFy304xnKNvDNrbHrsruszqTt63FzcMG4d69ldxGMxJAzwVMsIMEGcREGcM8PBbdv8AxO+rbHWtzBi3dbsOcBuxjdcRAfJzBBBnLAEWW/jJ7XNNOkwACl3S6pda6lTuDdsktptkuwAxEZEStdOcpxic4qa5/wBTKMbmvDzoouuby6bsht7heLXOA5Ncfgo1tV/xNVeyqwht2q2nTI73cZTpuY1tMzLBLrxAwOIIIJBxFtk0JIQNCSEDQkhA0JIQNCSEDQkhA0JIQdMbJAGZIA8yrR2dU0+x/r7nBU1ZZVpwJpyYgm9GOOMRniOQ+IPsD/DhhI9YkDHLMLqwWB1XBhGROOGA4yfNc76lP/SnM/qjOcMuE9B4z3s23mibzYnxAIIw4HyQWGbCquqOpNEvaLxAjLDEGYOYyUlf8N12NvubAw4tJxMZAzny4rnau2d+5pc0CBEYcYnHTT/kmA2yl7r/ANiqT54W7R+GLQxrnPbAaC52LTDQCZwPgVDtPYNWzua2uLpextdowM0nzddgToVCy10xnTnGRiRHhggWtga5oZBJDmkH9I4tOo5fFElY2RsJ1om6+CHbsC6XFxMREHxS21sU2cNJeHSS2LpaQQJ4lWvw3twWZ1+SHB4qNgTlH8Lj8SbZbaIIJLrznuJEYuXfXp9u/tnm1FmzHlpeP0jM/NRWaxOe4tbicQABJMCT0CsU9quFM0xEGeGIBEEA/E81xszaG5q7wCYvYHIhzS3h5rhP9GU5VNeUdusLqRuvwOnmJGSqq9tfaG/ffuhuAEDIACAqCi4XrG3k0JIRo0JIQegsNoDAZbemRzhULeZa4/fBXLNRDhJ18VT2g2A4D7yWmGYCnKQTUaErpoJyBPkuVobGe0OJeJbIkAwSMcjwQUt2fZd9/BJwjMEffkvVNr2MnFtcD9r6ZgTliMcPFY21nsJFybk5EguiBOIEa8EGbKJU5dS9l/8A5DlMLisWR3A4H9xBw+CCOUSpabqcd5rp1BEHPhy5KOqWz3QQND1+CBSiUkIHKJSQgcolJCByiUkIHKJSQgcolJCByiUkIHKJSQgcolJCByut2fZdy/0lT/UPMfNemsdrpNYWvAJJON1roENu4kyMb2Sc/Q81uz7LuX+kbs+y7l/penbWsmEiqMgYcwzAAJxykiY4SRpEdorWe6RTD72EFzm/EQPmhbzm7Psu5f6Ruz7LuX+lr3xqOa7o1WBwL+83iGuDSR4OIMcirRbEc0jMEea5lX9ouBaMeP0VBQEolCEBKEJIPQ2Gyl8wSPjgqFvENcPvgr1hoPfIYYz+n8qjbxg6TP2FUZoQkE1lQprPZy+YjCM/FQq/sv1vh9VRx6Pdq3qj0e7UdVtPtMx3RhOeIxMwBwHBc7/9jcoyOGeI59FUtj+j3ajqj0e7UdVs0bTddeug90tiABj63nOKs27aYqMubljcQQ4CHDwkRIjCD4ccUHnfR7tR1R6PdqOq0YRCUWzvR7tR1R6PdqOq0YRCUWzvR7tR1R6PdqOq0JRKUWz/AEe7UdUej3ajqtCUSlFs/wBHu1HVHo92o6rQlEpRbP8AR7tR1SNgdqOq0ZSccClFszsv7m9f4R2X9zev8K40m4WESMxiBDsr/iei0PSYkHslmwMxdwPeDodLsRwjDDDLBQhh9l/c3r/CZsh9pvX+Fs1doAhw7NZ23mloutEscb3fa4kkHveXdGCpAEFputdGMOyMHIiRIQlTNk/c3r/COy/ub1/ha1rtl99Vxo0/6kATE04cDeBBHeMEE+KmO1Bj/wDkswxLsGZTOGJOHhyjCBjcxFsMWQ+03r/CXZv3N6/wtC0vvue8MbTvRDGQGtiMAOGU/FWn7QmjTpbpvcc10kgtddJMXRB70444/JKZTMVUWxey/ub1/hSUtnucYaWk/FarbcA692WgcQe8JGF6BdBDYh5kRiWtOF0Lmx1hvr7mtpjDutm6IbGAknmTmi5TMRMwp+hKug5o9B1dBzXsqv4gpGnTZA7haTN4tN0REaHjEZnPNc+n6Pu6PD1XCcHDGIx73CMWt0Wbn08/c6nr8l41+xaoEmIVbsv7m9f4Xr9p7Up1GQAxpx/Q27el048MMh4BeevG5cu/G8IJvA3rusCJnJWJl0wyymOYUK9mLBJI0wUC0NpHujz+iz1XUIQhAIQkg9Rsiy1n4UIJJuxjJMA8OCy9ptIvB0ThllwWxsPa9Wg1wpNm9ImQCJjLDw6rH2pULr7iIJjCZjLinLnjttz4ZYTXLU1HQ1o7H9b+36rNWlsf1v7fqrCS03MIzBE4jDMLlar7HUu0yHML3uuimP199tKo1xJ7uIrMOeAI8YgFQ3g1tWk4cXCbgABkEuaJw0BmREzC0yoolatKy1CWMFWl37gpSZ3pLixobLZHeaW98NEj4qLcVHGmwPad62804gAXnsN6WgiCx0wOHFBnoVyz2G+4NZVpOLiGMEvF97smAOaIxgS6BJzzikChZoKEFC2cymTkCfISuStDYdmfUfda5rB3S575IZeeKbTAxJvVAAPHHKRJZ7PWIaG1KeJNOkJxrOYBhSN3/tAvFskwJMhRplhCmFufIcHZYgw3iI00T7c/X/1b/CCBdMpkzAJjOBMIq1S4y7E5ZAfJWdntcb5aWta0B73vm6yHANPdBJN5wAABnSASAqlp0OvmNUls1LLaYY2WuLW3KbRdN6iXUgKjTF0sJqUoJORByBIzn21+IvBwyBAEGDg4YDD6FSCL+1dCnNtfroMm8Pgk61vIIJwOBwGWioiunRJWDb6nF3QY+arudJJPHFAISQgl3LoBjA4DxMxlnn80t072TyPkmLQ4AAHLEYCRiDnnmBh4BPtj/aPTHz5Dkg4DDofvFDqZGJBHwXfanzN4zrxwnj8TzXL67iIJkZ/HP6oO7JZnVXtp0xLnGAJAyBJJJwAABM+C7bYHkgANlwvj+pTxbMB36sATkePCUbLqvbWpupNvvDgWtgm87gIbB5FX3220uLZouLrzqrDu6hIqA95zGnAQYkARIkicVFUn7OqAOJDe6HF0VKRi5F4YOxIvNwGPebqJdXZlVrbzmiO8cH03TcvX4DSSbt10xlBmFYFWuxsdnLQ2maZllUAUSHB5cJgA94kxBOOYBHBqWmmxwLKjGlgpGW1GtbSgtiP096XYkHFziIJKDItWQ81WVi1ZBVkDQkhQNCSEG/YbVcBhpMyMBlMfwqO0HSHHLz+C0Nm2tjAQ8TPTLELO2g4EOI+8lpGc1OVyE1lo5Wjsj1v7fqs1aWx/W/t+qseWcvD11k26KdKk1rXvcx5fFVzXsYP6M7uWy0ODHtugwA903jBFerbqVQN3or1Lh9eoHVKjXQXMdUu4NF3DjL3HCcMy74hF3xC057NUbSpX3VLlW8QGsIcwblokRTbdhuEAHMYnMhwrU7Y0brCoDTaWNNN4Y7GrVqXr10wf6gGHsnXCnd8Qi74hC2v6VpklxbWLw0U21TUaakXnlzyS39ZDg0Oza1oAxxGMurviEXfEIW5QV1d8QuXIWj2Bb20K7KrjUABEmk+6bsgkEQb7TGLZHSDZO2mF7Khow6i4PohrmtZIIeN41rADFS883LoN8iGiIxWieIHmurviOqy6W5aIAGmCcp3fEdUXfEdVQpVuxWprWvp1GuLKgbN0hrmuY681wJBB9YQRk45QFVu+I6ou+I6qDYsu3zTeXNa66d1TFM1CWto06baURF01C2nTBeW8HCIdAzbbXD6heARN0YkFzi1rWl7iIlziC4nVxUN3xHVF3xHVCylEp3fEdUXfEdVQpRKd3xHVF3xHVApRKd3xHVF3xHVBNRtbmRdjDCeMST/9FOnbHNgiMMsPC78lBd8R1Rd8R1UE4trtG5REYKGrULjJj4YDlwSu+I6ou+I6oLGzLZuazKsTdMxMSIIIkg5gngVbftZpLXCi0OaQ5sEBt0EFtIgNBdTBA7pJ8IGCzLviOqLviOqFtCltFsBu7JJY6m7vg33VABUqGWzeJDTM4FjBkCDN2ms1j2mkYaw0zIBFI1WuFR5JF4PfvHGQ4fqxkABZN3xHVLdjVqFobScAq8qa0nAKBSVOUSkhA5QkhB6HZtVgab8Z6weCztoH9UfeS0tl06ZBNQTj/CztpgS+BA4DQYYLSMwJpBNZaC0tj+t/b9VmrS2P639v1Vjyzl4aKFaFSmc2nKMBAnyB8NcZ4J7yl7J14/ATJ+9VtxVEKdj2Ri0k4a/HGfp4eK63lOP0Y+Z8cc/LDw4ZoKyFa3tPgw8PnOumC4qPZHdbGeMn4CJ++iKgQUIKJbJQp7FVaL15l6RoDHxP6fPHyK7dVpcKZ44kuwEYd29r4444jhh2VUKy6pSJEMIHemSXeqbuEj1iOIwA1KZrUcf6Z8O8RHgTJnEZ6Hwk0VUK06rRviGODcZxM8I4+B5/Bdsr0BB3ZMEEySQQMxE/c/AwUkIcccEkDQkhA0JIQNCSEDQkhA0JIQNCSEDQgAnISi4dDy+9DyQRWjIKup7RkFApKwEIQooTSQg9Bs6xtqAlxgzGOmHXFUNoNAvAZcOi0NmWJ1RpLXEQccY+Kztoti8CZjX4LbLNCaQTWWgtLY/r/wBv1WatHY/r/wBv1Vx8sZ+Hv6X4ZpFoJdUxAObeI/7V1+V6PtVObP8AFUKf4peABu24ADM8E/zW/wB23mV7L6T4k4fLvz+wvflej7VTmz/FH5Xo+1U5s/xVH81v923mUfmt/u28yl9JNPme/wBhe/K9H2qnNn+KPyvR9qpzZ/iqP5rf7tvMo/Nb/dt5lL6Rp8z3+wvflej7VTmz/FYe39ntoPa1hcQW3u9BMyRwA0V781v923mVl7X2ia7g4tDYbdgGeJM9VnOcK/5d/j4/IjP+SeGVYGf0nPDiDfa3CMrrjOIz/krg2YEzJ14fwu9nXnUnsbdwcx5LjHquEKu61kGCBovLEvqRM3MJOyjU9EdlGp6KPth0CO2HQKtcpOyjU9EdlGp6KPth0CO2HQIcpOyjU9EdlGp6KPth0CO2HQIcpOyjU9EdlGp6KPth0CO2HQIcpOyjU9EdlGp6KPth0CO2HQIcpOyjU9EdlGp6KPth0CO2HQIcpOyjU9EdlGp6KPth0CO2HQIcpOyjU9EdlGp6KPth0CO2HQIcpOyjU9EdlGp6KPth0CO2HQIcp6VK6ZaSDlwOHxC09k0DUNUOqPAbRrWgRcxfTZeAMtxBIErJstU1KjKYugvc2mC4kNvOIaJImBJGK9RT2PaLIytVqCi4GhXpwypLhfZdvwQJAmSBj1U4Kl4a0ZBQqavkoVJaCEIUAhCEGxZqrwO4XRPATj5qrbSSHTnxnDTgr9gtbWNIOczlOiobQeDeIy/4W2WeE0gmsqFpbH9b+36rNU1ne8TcPnl8M1Y4Zyi4pvIWPvq2p5NRvq2p5NWtnPty2ELH31bU8mo31bU8mpsduWwhY++rank1G+rank1Njty2EisjfVtTyajfVtTyamx25cJqPdv0+SN2/T5LLskQo92/T5I3b9PkgkQo92/T5I3b9PkgkQo92/T5I3b9PkgkQo92/T5I3b9PkgkQo92/T5I3b9PkgkQo92/T5I3b9PkgkQo92/T5I3b9PkgkQo92/T5I3b9PkgkQo92/T5I3b9PkgkXIYNAud2/T5I3b9PkgK2ShXdRrh+pcKAQhCAQhCDc2dbGsaWvaTJmREgYZT5Khb33rzhkf9LT2ZRY5pLgM+mCztpAAuA+8lpGeEJBNZUK5s7M/D6qmumE8CR5INmVbsNSgA/fNe4924WkQ0gm9eEiRlgCOOIzWA0E+sea7uH2jzWrHo7RXstwinTqX4ABe4QDxPdOPKPALNlZ27PtHmjdn2jzQaDinKzrh9o80XD7R5ojYsb6Yf/VDnNg4NIBmMDPgVdr2ixkG5Sqg43e+I9a6HDE8WzB4HImV5q4faPNclplovHEgZ6qK05QSrFl2BvCQKsEC933BoOIEAnCcehVq0fhJzGlxrNwF4gVGkxlMeeHmRqFNoY3xLeDUc1LZqtMOG8xbjIaRMwbvWCsv0SPePR6JHvHq7s74+3oH2myRAZUmMHF4z72JZ/44TrpjRrVWXjcwbJugkE3eEkcVm+iR7x6PRI949N4N8fa86oIOI5rOacF36JHvHo9Ej3j02XfH2s2GpQF7fte7K5ccBGd6Zz4R8VbZaLFm6lVmSYDxF2TAxMjCJz4xHDL9Ej3j0eiR7x6mx3MV211LNcik2qHyAC9zS26AJMDiTOGQnwxoSuvRI949Hoke8emx3MXDSprM5ge01ASyReAMEtnEA6rj0SPePR6JHvHptB3MWqa9hjClX877RjHxHThlrWt1WzloFFtRrplxcRdLYOAbiRjGZP1PnmtMkXjgYzU4spid4Nf1dFXRclIHNUzZT7fj+pR3D7Tuato06Tm3hexbIvAHEtnEDxhaO/sl5p3dW7MvF9plpD8GnDIlkTwDpzw83cPtO5ouH2nc0V6GvUstwhjat6BdLi39WEkwcQccABBObhgs+Vnbs+0ea5c0j1jzQTbROX3qqK6eTxJK5WQIQhAIQhBvbPsbXtJdEzGJjgFQ2iwNvAZCPomyo4YAkeRIUVpMtJOKqKYTSCFGjQEk2oJmKSUUx4qS74+CIjkokqThmo75QGKJRfOqA8opSuSe83zHzTXJzb5j5hEbgLjlJ44Tlqjvfu6/fApMeRiDH3PzAUhtT/aPT74DkNFpiockO/d14Z/JLvfu6piu7U8euJXXan5XjGUcEKhz3v3dfJLvfu6rvtL/AGjhl9/eSRtL4i8Yz+KFQUO/d1S737uq67Q7U6/VM2p59Y8Tzzw8ZPMoVCO+dTzKL51PMrlCFQ6vnU8yi+dTzK5QhUOr51PMovnU8yuUIVDHacXeZ+ZXeKjbm7zK7vFZbOSiSi+dUXzqgJKJKLxRfOqAkrh66vFcvcUELkkOSRaNCSEKNCSEKf/Z" alt="DeFi Analytics Dashboard" class="mx-auto rounded-lg shadow-lg max-w-full" />
+          <p class="mt-4 text-gray-400 text-sm">Preview our real-time DeFi dashboard.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="container mx-auto px-4 sm:px-6 py-16 max-w-6xl fade-in">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-600 flex items-center justify-center">
+        <i class="fa-solid fa-tags mr-2 crypto-icon"></i>Your Plan, Your Power
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="card p-6">
+          <i class="fa-solid fa-star mx-auto mb-4 text-3xl text-blue-400 crypto-icon"></i>
+          <h3 class="text-xl font-semibold mb-3 text-gray-100 text-center">Basic</h3>
+          <p class="text-2xl font-bold text-blue-400 mb-4 text-center">$19<span class="text-sm text-gray-400">/mo</span></p>
+          <ul class="text-gray-300 mb-6 space-y-2 flex-grow">
+            <li class="flex items-center"><i class="fa-solid fa-check mr-2 crypto-icon text-blue-400"></i>Core DeFi Strategies</li>
+            <li class="flex items-center"><i class="fa-solid fa-check mr-2 crypto-icon text-blue-400"></i>Basic Analytics</li>
+            <li class="flex items-center"><i class="fa-solid fa-check mr-2 crypto-icon text-blue-400"></i>1 NFT Staking Slot</li>
+          </ul>
+          <a href="#" class="btn-primary px-6 py-2 rounded-full font-semibold flex items-center justify-center mt-auto" aria-label="Select Basic Plan">
+            <i class="fa-solid fa-arrow-right mr-1 crypto-icon"></i>Get Started
+          </a>
+        </div>
+        <div class="card p-6 border border-blue-400 relative">
+          <span class="absolute top-0 right-0 bg-blue-400 text-white text-xs font-semibold px-3 py-1 rounded-bl-lg">Most Popular</span>
+          <i class="fa-solid fa-crown mx-auto mb-4 text-3xl text-blue-400 crypto-icon"></i>
+          <h3 class="text-xl font-semibold mb-3 text-gray-100 text-center">Pro</h3>
+          <p class="text-2xl font-bold text-blue-400 mb-4 text-center">$49<span class="text-sm text-gray-400">/mo</span></p>
+          <ul class="text-gray-300 mb-6 space-y-2 flex-grow">
+            <li class="flex items-center"><i class="fa-solid fa-check mr-2 crypto-icon text-blue-400"></i>Advanced DeFi Strategies</li>
+            <li class="flex items-center"><i class="fa-solid fa-check mr-2 crypto-icon text-blue-400"></i>Premium Analytics</li>
+            <li class="flex items-center"><i class="fa-solid fa-check mr-2 crypto-icon text-blue-400"></i>5 NFT Staking Slots</li>
+            <li class="flex items-center"><i class="fa-solid fa-check mr-2 crypto-icon text-blue-400"></i>Priority Support</li>
+          </ul>
+          <a href="#" class="btn-primary px-6 py-2 rounded-full font-semibold flex items-center justify-center mt-auto" aria-label="Select Pro Plan">
+            <i class="fa-solid fa-arrow-right mr-1 crypto-icon"></i>Get Started
+          </a>
+        </div>
+        <div class="card p-6">
+          <i class="fa-solid fa-gem mx-auto mb-4 text-3xl text-blue-400 crypto-icon"></i>
+          <h3 class="text-xl font-semibold mb-3 text-gray-100 text-center">Enterprise</h3>
+          <p class="text-2xl font-bold text-blue-400 mb-4 text-center">Custom</p>
+          <ul class="text-gray-300 mb-6 space-y-2 flex-grow">
+            <li class="flex items-center"><i class="fa-solid fa-check mr-2 crypto-icon text-blue-400"></i>Custom DeFi Strategies</li>
+            <li class="flex items-center"><i class="fa-solid fa-check mr-2 crypto-icon text-blue-400"></i>Full Analytics Suite</li>
+            <li class="flex items-center"><i class="fa-solid fa-check mr-2 crypto-icon text-blue-400"></i>Unlimited NFT Staking</li>
+            <li class="flex items-center"><i class="fa-solid fa-check mr-2 crypto-icon text-blue-400"></i>Dedicated Manager</li>
+          </ul>
+          <a href="#" class="btn-primary px-6 py-2 rounded-full font-semibold flex items-center justify-center mt-auto" aria-label="Contact for Enterprise Plan">
+            <i class="fa-solid fa-envelope mr-1 crypto-icon"></i>Contact Us
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- NFT Collection Section -->
+    <section id="nft" class="container mx-auto px-4 sm:px-6 py-16 max-w-6xl fade-in">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-600 flex items-center justify-center">
+        <i class="fa-solid fa-image mr-2 crypto-icon"></i>Premium NFT Collection
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="card bg-gray-800 flex flex-col">
+          <img data-src="https://img.freepik.com/free-vector/hand-drawn-nft-style-ape-illustration_23-2149622021.jpg?uid=R193545003&ga=GA1.1.1261163122.1729983456&semt=ais_hybrid&w=740" alt="Cyberpunk Ape NFT" class="w-full h-48 object-cover"/>
+          <div class="p-5 flex flex-col flex-grow">
+            <h3 class="font-semibold text-lg text-gray-100 flex items-center">
+              <i class="fa-solid fa-ethereum mr-1 crypto-icon"></i>Vibe #001
+            </h3>
+            <p class="text-sm text-gray-300 flex-grow">Cyberpunk ape with exclusive staking rewards.</p>
+          </div>
+        </div>
+        <div class="card bg-gray-800 flex flex-col">
+          <img data-src="https://img.freepik.com/free-vector/hand-drawn-nft-style-ape-illustration_23-2149611030.jpg?uid=R193545003&ga=GA1.1.1261163122.1729983456&semt=ais_hybrid&w=740" alt="Blockchain Ape NFT" class="w-full h-48 object-cover"/>
+          <div class="p-5 flex flex-col flex-grow">
+            <h3 class="font-semibold text-lg text-gray-100 flex items-center">
+              <i class="fa-solid fa-ethereum mr-1 crypto-icon"></i>Vibe #002
+            </h3>
+            <p class="text-sm text-gray-300 flex-grow">Limited edition with governance rights.</p>
+          </div>
+        </div>
+        <div class="card bg-gray-800 flex flex-col">
+          <img data-src="https://img.freepik.com/free-vector/hand-drawn-nft-style-ape-illustration_23-2149622052.jpg?uid=R193545003&ga=GA1.1.1261163122.1729983456&semt=ais_hybrid&w=740" alt="Futuristic Ape NFT" class="w-full h-48 object-cover"/>
+          <div class="p-5 flex flex-col flex-grow">
+            <h3 class="font-semibold text-lg text-gray-100 flex items-center">
+              <i class="fa-solid fa-ethereum mr-1 crypto-icon"></i>Vibe #003
+            </h3>
+            <p class="text-sm text-gray-300 flex-grow">Elite collectible for Web3 investors.</p>
+          </div>
+        </div>
+        <div class="card bg-gray-800 flex flex-col">
+          <img data-src="https://img.freepik.com/free-vector/hand-drawn-nft-style-ape-illustration_23-2149622024.jpg?uid=R193545003&ga=GA1.1.1261163122.1729983456&semt=ais_hybrid&w=740" alt="Neon Ape NFT" class="w-full h-48 object-cover"/>
+          <div class="p-5 flex flex-col flex-grow">
+            <h3 class="font-semibold text-lg text-gray-100 flex items-center">
+              <i class="fa-solid fa-ethereum mr-1 crypto-icon"></i>Vibe #004
+            </h3>
+            <p class="text-sm text-gray-300 flex-grow">Rare NFT with premium platform perks.</p>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-12">
+        <a href="#" class="btn-primary px-6 py-3 rounded-full font-semibold text-base flex items-center justify-center mx-auto" aria-label="Explore NFT Marketplace">
+          <i class="fa-solid fa-store mr-1 crypto-icon"></i>Explore Marketplace
+        </a>
+      </div>
+    </section>
+
+    <!-- Governance Section -->
+    <section id="governance" class="bg-gray-900 py-16 px-4 sm:px-6 fade-in">
+      <div class="container mx-auto max-w-5xl">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-600 flex items-center justify-center">
+          <i class="fa-solid fa-gavel mr-2 crypto-icon"></i>Govern the Platform
+        </h2>
+        <p class="text-base sm:text-lg text-gray-300 mb-8 text-center max-w-3xl mx-auto">Hold SparkVibe NFTs to vote on features and share revenue.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="card p-6">
+            <i class="fa-solid fa-vote-yea mx-auto mb-4 text-3xl text-blue-400 crypto-icon"></i>
+            <h3 class="text-xl font-semibold mb-3 text-gray-100 text-center">Decentralized Voting</h3>
+            <p class="text-gray-300 leading-relaxed text-center">Propose and vote on platform upgrades.</p>
+          </div>
+          <div class="card p-6">
+            <i class="fa-solid fa-hand-holding-dollar mx-auto mb-4 text-3xl text-blue-400 crypto-icon"></i>
+            <h3 class="text-xl font-semibold mb-3 text-gray-100 text-center">Revenue Sharing</h3>
+            <p class="text-gray-300 leading-relaxed text-center">Stake NFTs to earn platform profits.</p>
+          </div>
+        </div>
+        <div class="text-center mt-12">
+          <a href="#" class="btn-primary px-6 py-3 rounded-full font-semibold text-base flex items-center justify-center mx-auto" aria-label="Join Governance">
+            <i class="fa-solid fa-gavel mr-1 crypto-icon"></i>Join Governance
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="bg-gray-900 py-16 px-4 sm:px-6 fade-in">
+      <div class="container mx-auto max-w-5xl">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-600 flex items-center justify-center">
+          <i class="fa-solid fa-quote-left mr-2 crypto-icon"></i>Trusted by Web3 Leaders
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="card p-6">
+            <p class="text-gray-300 mb-4 leading-relaxed">"SparkVibe’s NFT staking and analytics are unmatched. My portfolio is thriving!"</p>
+            <div class="flex items-center">
+              <img data-src="https://img.freepik.com/free-photo/lifestyle-people-emotions-casual-concept-confident-nice-smiling-asian-woman-cross-arms-chest-confident-ready-help-listening-coworkers-taking-part-conversation_1258-59335.jpg?uid=R193545003&ga=GA1.1.1261163122.1729983456&semt=ais_hybrid&w=740" alt="Elena V. Avatar" class="w-10 h-10 rounded-full mr-2" />
+              <p class="text-gray-100 font-semibold">Elena V., DeFi Investor</p>
+            </div>
+          </div>
+          <div class="card p-6">
+            <p class="text-gray-300 mb-4 leading-relaxed">"Governance gives me a voice in the platform’s future. True Web3!"</p>
+            <div class="flex items-center">
+              <img data-src="https://img.freepik.com/free-photo/handsome-young-cheerful-man-with-arms-crossed_171337-1073.jpg?uid=R193545003&ga=GA1.1.1261163122.1729983456&semt=ais_hybrid&w=740" alt="Mark T. Avatar" class="w-10 h-10 rounded-full mr-2" />
+              <p class="text-gray-100 font-semibold">Mark T., NFT Collector</p>
+            </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- FAQ Section -->
+    <section id="faq" class="container mx-auto px-4 sm:px-6 py-16 max-w-5xl fade-in">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-600 flex items-center justify-center">
+        <i class="fa-solid fa-question-circle mr-2 crypto-icon"></i>Frequently Asked Questions
+      </h2>
+      <div class="space-y-4">
+        <div class="faq-item bg-gray-800 rounded-2xl p-4">
+          <input type="checkbox" id="faq1" class="hidden peer" />
+          <label for="faq1" class="flex justify-between items-center cursor-pointer text-gray-100 font-semibold">
+            <span>What is SparkVibe?</span>
+            <i class="fa-solid fa-chevron-down crypto-icon peer-checked:rotate-180"></i>
+          </label>
+          <div class="faq-content text-gray-300">
+            SparkVibe is a SaaS-powered DeFi platform for crypto investments, NFT staking, and governance.
+          </div>
+        </div>
+        <div class="faq-item bg-gray-800 rounded-2xl p-4">
+          <input type="checkbox" id="faq2" class="hidden peer" />
+          <label for="faq2" class="flex justify-between items-center cursor-pointer text-gray-100 font-semibold">
+            <span>How do I stake NFTs?</span>
+            <i class="fa-solid fa-chevron-down crypto-icon peer-checked:rotate-180"></i>
+          </label>
+          <div class="faq-content text-gray-300">
+            Connect your wallet, select an NFT, and stake it to earn rewards.
+          </div>
+        </div>
+        <div class="faq-item bg-gray-800 rounded-2xl p-4">
+          <input type="checkbox" id="faq3" class="hidden peer" />
+          <label for="faq3" class="flex justify-between items-center cursor-pointer text-gray-100 font-semibold">
+            <span>Is my investment secure?</span>
+            <i class="fa-solid fa-chevron-down crypto-icon peer-checked:rotate-180"></i>
+          </label>
+          <div class="faq-content text-gray-300">
+            Yes, we use audited smart contracts and multi-sig wallets for security.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Subscribe Section -->
+    <section id="subscribe" class="bg-gradient-to-br from-blue-900 to-purple-900 py-16 px-4 sm:px-6 fade-in">
+      <div class="container mx-auto max-w-lg text-center">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-600 flex items-center justify-center">
+          <i class="fa-solid fa-envelope-open-text mr-2 crypto-icon"></i>Join the Web3 Elite
+        </h2>
+        <p class="text-gray-300 mb-8 leading-relaxed text-base sm:text-lg">Get exclusive updates on DeFi, NFTs, and governance.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div class="relative w-full sm:w-2/3">
+            <i class="fa-solid fa-envelope absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 crypto-icon"></i>
+            <input
+              id="emailInput"
+              type="email"
+              placeholder="Enter your email"
+              required
+              class="w-full pl-10 pr-4 py-2.5 rounded-full bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-400 transition text-sm sm:text-base"
+              aria-label="Email Address for Subscription"
+            />
+          </div>
+          <button
+            id="subscribeBtn"
+            class="btn-primary px-6 py-2.5 rounded-full font-semibold text-sm sm:text-base flex items-center justify-center"
+            aria-label="Subscribe to Newsletter"
+          >
+            <i class="fa-solid fa-paper-plane mr-1 crypto-icon"></i>Subscribe
+          </button>
+        </div>
+        <p id="subscribeMsg" class="mt-4 text-green-400 font-semibold hidden text-sm" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-400 py-12 px-4 sm:px-6">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div>
+          <h3 class="text-gray-100 font-semibold mb-4 flex items-center">
+            <i class="fa-solid fa-cubes-stacked mr-1 crypto-icon"></i>SparkVibe
+          </h3>
+          <p class="text-sm">Empowering wealth through DeFi and NFTs.</p>
+        </div>
+        <div>
+          <h3 class="text-gray-100 font-semibold mb-4 flex items-center">
+            <i class="fa-solid fa-link mr-1 crypto-icon"></i>Resources
+          </h3>
+          <ul class="text-sm space-y-2">
+            <li><a href="#" class="hover:text-blue-400" aria-label="API Documentation">API Docs</a></li>
+            <li><a href="#" class="hover:text-blue-400" aria-label="Whitepaper">Whitepaper</a></li>
+            <li><a href="#faq" class="hover:text-blue-400" aria-label="FAQ">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-gray-100 font-semibold mb-4 flex items-center">
+            <i class="fa-solid fa-gavel mr-1 crypto-icon"></i>Community
+          </h3>
+          <ul class="text-sm space-y-2">
+            <li><a href="#governance" class="hover:text-blue-400" aria-label="Governance">Governance</a></li>
+            <li><a href="#" class="hover:text-blue-400" aria-label="Discord">Discord</a></li>
+            <li><a href="#" class="hover:text-blue-400" aria-label="Blog">Blog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-gray-100 font-semibold mb-4 flex items-center">
+            <i class="fa-solid fa-envelope mr-1 crypto-icon"></i>Contact
+          </h3>
+          <p class="text-sm">support@sparkvibe.com</p>
+          <p class="text-sm">+1 (800) WEB3-VIBE</p>
+        </div>
+      </div>
+      <div class="flex justify-center space-x-6 text-lg mb-4">
+        <a href="#" class="hover:text-blue-400" aria-label="Twitter">
+          <i class="fa-brands fa-twitter crypto-icon"></i>
+        </a>
+        <a href="#" class="hover:text-blue-400" aria-label="Telegram">
+          <i class="fa-brands fa-telegram crypto-icon"></i>
+        </a>
+        <a href="#" class="hover:text-blue-400" aria-label="Discord">
+          <i class="fa-brands fa-discord crypto-icon"></i>
+        </a>
+        <a href="#" class="hover:text-blue-400" aria-label="GitHub">
+          <i class="fa-brands fa-github crypto-icon"></i>
+        </a>
+        <a href="#" class="hover:text-blue-400" aria-label="OpenSea">
+          <i class="fa-solid fa-water crypto-icon"></i>
+        </a>
+      </div>
+      <p class="text-sm text-center">© 2025 SparkVibe. All rights reserved.</p>
+      <div class="mt-4 flex justify-center space-x-6 text-sm">
+        <a href="#" class="hover:text-blue-400" aria-label="Privacy Policy">Privacy Policy</a>
+        <a href="#" class="hover:text-blue-400" aria-label="Terms of Use">Terms of Use</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /**
+     * Initialize Web3.js for wallet and NFT integration
+     */
+    let web3;
+    let account;
+    const initWeb3 = async () => {
+      try {
+        const walletSpinner = document.getElementById('walletSpinner');
+        const walletSpinnerMobile = document.getElementById('walletSpinnerMobile');
+        walletSpinner.style.display = 'inline-block';
+        walletSpinnerMobile.style.display = 'inline-block';
+        if (window.ethereum) {
+          web3 = new Web3(window.ethereum);
+          await window.ethereum.request({ method: 'eth_requestAccounts' });
+          const accounts = await web3.eth.getAccounts();
+          account = accounts[0];
+          updateWalletUI(account, 'Connected');
+          await Promise.all([getBalance(account), checkNFTs(account)]);
+        } else {
+          showError('Please install Metamask to connect your wallet.');
+        }
+        walletSpinner.style.display = 'none';
+        walletSpinnerMobile.style.display = 'none';
+      } catch (error) {
+        console.error('Web3 initialization failed:', error);
+        showError('Failed to connect wallet. Please try again.');
+      }
+    };
+
+    /**
+     * Update wallet UI
+     * @param {string} account - Wallet address
+     * @param {string} status - Connection status
+     */
+    const updateWalletUI = (account, status) => {
+      const walletStatus = document.getElementById('walletStatus');
+      const walletStatusMobile = document.getElementById('walletStatusMobile');
+      const walletBalance = document.getElementById('walletBalance');
+      if (account) {
+        const shortAddress = `${account.slice(0, 6)}...${account.slice(-4)}`;
+        walletStatus.textContent = shortAddress;
+        walletStatusMobile.textContent = shortAddress;
+        walletBalance.classList.remove('hidden');
+      } else {
+        walletStatus.textContent = status;
+        walletStatusMobile.textContent = status;
+      }
+    };
+
+    /**
+     * Fetch ETH balance
+     * @param {string} account - Wallet address
+     */
+    const getBalance = async (account) => {
+      try {
+        const balanceWei = await web3.eth.getBalance(account);
+        const balanceEth = web3.utils.fromWei(balanceWei, 'ether');
+        document.getElementById('balance').textContent = parseFloat(balanceEth).toFixed(4);
+      } catch (error) {
+        console.error('Failed to fetch balance:', error);
+      }
+    };
+
+    /**
+     * Simulate NFT ownership check
+     * @param {string} account - Wallet address
+     */
+    const checkNFTs = async (account) => {
+      try {
+        // Mock NFT check
+        const nftCount = Math.floor(Math.random() * 5);
+        document.getElementById('nftCount').textContent = nftCount;
+        if (nftCount > 0) {
+          document.getElementById('nftBadge').classList.remove('hidden');
+        }
+      } catch (error) {
+        console.error('Failed to check NFTs:', error);
+      }
+    };
+
+    /**
+     * Show error message
+     * @param {string} message - Error message
+     */
+    const showError = (message) => {
+      const walletBalance = document.getElementById('walletBalance');
+      walletBalance.textContent = message;
+      walletBalance.classList.remove('hidden');
+      walletBalance.classList.add('text-red-400');
+      setTimeout(() => {
+        walletBalance.classList.add('hidden');
+        walletBalance.classList.remove('text-red-400');
+      }, 4000);
+    };
+
+    /**
+     * Custom cursor
+     */
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = `${e.clientX}px`;
+      cursor.style.top = `${e.clientY}px`;
+    });
+    document.querySelectorAll('a, button, .card').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('custom-cursor--hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('custom-cursor--hover'));
+    });
+
+    /**
+     * Mobile menu toggle
+     */
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      mobileMenu.style.transition = 'transform 0.3s ease';
+      mobileMenu.style.transform = mobileMenu.classList.contains('hidden') ? 'translateY(-100%)' : 'translateY(0)';
+    });
+
+    /**
+     * Scroll-triggered animations
+     */
+    const faders = document.querySelectorAll('.fade-in');
+    const appearOptions = {
+      threshold: 0.15,
+      rootMargin: '0px 0px -80px 0px'
+    };
+    const appearOnScroll = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, appearOptions);
+    faders.forEach(fader => appearOnScroll.observe(fader));
+
+    /**
+     * Lazy-load images
+     */
+    const lazyImages = document.querySelectorAll('img[data-src]');
+    const loadImage = (img) => {
+      img.src = img.dataset.src;
+      img.classList.add('loaded');
+    };
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          loadImage(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    });
+    lazyImages.forEach(img => imageObserver.observe(img));
+
+    /**
+     * Subscription form
+     */
+    const subscribeBtn = document.getElementById('subscribeBtn');
+    const emailInput = document.getElementById('emailInput');
+    const subscribeMsg = document.getElementById('subscribeMsg');
+    subscribeBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const email = emailInput.value.trim();
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        subscribeMsg.textContent = 'Please enter a valid email address.';
+        subscribeMsg.classList.remove('hidden', 'text-green-400');
+        subscribeMsg.classList.add('text-red-400');
+        return;
+      }
+      subscribeMsg.textContent = 'Subscribed! Welcome to SparkVibe!';
+      subscribeMsg.classList.remove('hidden', 'text-red-400');
+      subscribeMsg.classList.add('text-green-400');
+      emailInput.value = '';
+      setTimeout(() => subscribeMsg.classList.add('hidden'), 4000);
+    });
+
+    /**
+     * Wallet connection
+     */
+    const connectWalletBtn = document.getElementById('connectWalletBtn');
+    const connectWalletBtnMobile = document.getElementById('connectWalletBtnMobile');
+    [connectWalletBtn, connectWalletBtnMobile].forEach(btn => {
+      btn.addEventListener('click', async () => {
+        updateWalletUI(null, 'Connecting...');
+        await initWeb3();
+      });
+    });
+
+    /**
+     * Live demo button
+     */
+    document.querySelector('a[href="#demo"]').addEventListener('click', (e) => {
+      e.preventDefault();
+      alert('Request a live demo by contacting support@sparkvibe.com!');
+    });
+  </script>
+</body>
+</html>
